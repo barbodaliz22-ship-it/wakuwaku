@@ -8,195 +8,109 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Kaisei+Decol:wght@400;700&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#111111;
-    --paper:#f7f6f2;
-    --paper2:#efeee8;
-    --stamp:#c1272d;
-    --grey:#6b6b66;
-    --line:#111111;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;background:var(--paper);color:var(--ink);
-    font-family:'Zen Kaku Gothic New',sans-serif;overflow-x:hidden;cursor:default;
-  }
-  body.intro-active{overflow:hidden;}
-  ::selection{background:var(--stamp);color:var(--paper);}
+:root{--ink:#111;--paper:#f7f6f2;--paper2:#efeee8;--stamp:#c1272d;--grey:#6b6b66;--line:#111;}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif;overflow-x:hidden;cursor:default}body.intro-active{overflow:hidden}::selection{background:var(--stamp);color:var(--paper)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;background-image:radial-gradient(circle,rgba(17,17,17,.06) 1px,transparent 1px);background-size:4px 4px;mix-blend-mode:multiply;opacity:.5}
+#inkdot{position:fixed;width:14px;height:14px;border:2px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .18s,background .18s;mix-blend-mode:difference}
+h1,h2,h3{font-family:'Shippori Mincho',serif;margin:0;line-height:1.05}a{color:inherit}.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
 
-  body::before{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
-    background-image:radial-gradient(circle,rgba(17,17,17,.06) 1px,transparent 1px);
-    background-size:4px 4px;mix-blend-mode:multiply;opacity:.5;
-  }
+/* ===== WAKU WAKU REAL-CAFE OPENING ===== */
+#intro{position:fixed;inset:0;z-index:20000;background:#eee9df;color:var(--ink);overflow:hidden;display:flex;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s ease}
+#intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.intro-paper{position:absolute;inset:-5%;background:radial-gradient(circle at 20% 20%,rgba(17,17,17,.035) 0 1px,transparent 1.5px),radial-gradient(circle at 80% 70%,rgba(17,17,17,.025) 0 1px,transparent 1.5px),#eee9df;background-size:8px 8px,11px 11px,auto;transition:transform 1.5s cubic-bezier(.16,1,.3,1),filter 1s ease}
+#intro.entering .intro-paper{transform:scale(1.08);filter:contrast(1.05)}
+.intro-scene{position:relative;width:min(1220px,96vw);height:min(760px,86vh);display:flex;align-items:center;justify-content:center;transform-origin:57% 56%;transition:transform 1.35s cubic-bezier(.16,1,.3,1),opacity .8s ease}
+#intro.entering .intro-scene{transform:scale(7) translate(-4%,2%);opacity:0}
+.intro-svg{width:100%;height:100%;overflow:visible}
+.draw{fill:none;stroke:#171717;stroke-width:2.05;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1800;stroke-dashoffset:1800;animation:inkDraw 2.15s cubic-bezier(.65,0,.35,1) forwards}
+.draw.thin{stroke-width:1.15}.draw.red{stroke:var(--stamp)}.fill-in{opacity:0;animation:inkFade .9s ease forwards}
+.scene-1{animation-delay:.6s}.scene-2{animation-delay:2.0s}.scene-3{animation-delay:3.5s}.scene-4{animation-delay:5.0s}.scene-5{animation-delay:6.5s}.scene-6{animation-delay:8.0s}.scene-7{animation-delay:9.4s}.scene-8{animation-delay:10.7s}.scene-9{animation-delay:11.8s}.scene-10{animation-delay:12.7s}
+@keyframes inkDraw{to{stroke-dashoffset:0}}@keyframes inkFade{to{opacity:1}}
 
-  #inkdot{
-    position:fixed;width:14px;height:14px;border:2px solid var(--ink);border-radius:50%;
-    pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
-    transition:width .18s,height .18s,border-color .18s,background .18s;mix-blend-mode:difference;
-  }
+/* Cat enters only after most of the real room has been drawn. */
+.intro-cat{transform-origin:720px 520px;opacity:0;animation:catEnter 1.25s cubic-bezier(.16,1,.3,1) 11.25s forwards}.cat-body{fill:#eee9df;stroke:#171717;stroke-width:2.5}.cat-detail{fill:none;stroke:#171717;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.cat-tail{fill:none;stroke:#171717;stroke-width:2.7;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:tailDraw 1.2s ease 11.65s forwards}
+@keyframes catEnter{from{opacity:0;transform:translateX(-115px) translateY(28px) rotate(-4deg) scale(.9)}to{opacity:1;transform:translateX(0) translateY(0) rotate(0) scale(1)}}@keyframes tailDraw{to{stroke-dashoffset:0}}
+.cat-idle{animation:catIdle 2.8s ease-in-out 12.6s infinite alternate;transform-origin:760px 510px}@keyframes catIdle{from{transform:translateY(0) rotate(0)}to{transform:translateY(-3px) rotate(.7deg)}}
+.steam{fill:none;stroke:#77736b;stroke-width:1.7;stroke-linecap:round;opacity:0;stroke-dasharray:80;animation:steam 2.6s ease-in-out 12.5s infinite}.steam.s2{animation-delay:12.9s}.steam.s3{animation-delay:13.3s}@keyframes steam{0%{opacity:0;transform:translateY(8px)}25%{opacity:.7}75%{opacity:.22}100%{opacity:0;transform:translateY(-18px)}}
 
-  h1,h2,h3{font-family:'Shippori Mincho',serif;margin:0;line-height:1.05;}
-  a{color:inherit;}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+.intro-copy{position:absolute;left:5%;top:8%;z-index:2;pointer-events:none}.intro-kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--stamp);opacity:0;animation:copyIn .8s ease 10.9s forwards}.intro-title{margin-top:10px;font-family:'Shippori Mincho',serif;font-size:clamp(28px,4vw,54px);line-height:.98;letter-spacing:-.03em;opacity:0;animation:copyIn .9s cubic-bezier(.16,1,.3,1) 11.15s forwards}.intro-title em{font-style:normal;color:var(--stamp)}@keyframes copyIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.intro-enter{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#5f5b55;opacity:0;animation:copyIn .8s ease 14.0s forwards}.intro-enter .line{width:42px;height:1px;background:#5f5b55;position:relative;overflow:hidden}.intro-enter .line::after{content:"";position:absolute;inset:0;background:var(--stamp);transform:translateX(-100%);animation:enterPulse 1.8s ease-in-out 14.4s infinite}@keyframes enterPulse{50%{transform:translateX(0)}100%{transform:translateX(100%)}}
+.intro-skip{position:absolute;right:4%;bottom:4%;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#77736b;opacity:0;animation:copyIn .6s ease 14.2s forwards}
 
-  /* ===== IMMERSIVE OPENING ===== */
-  #intro{
-    position:fixed;inset:0;z-index:20000;background:#eee9df;color:var(--ink);
-    overflow:hidden;display:flex;align-items:center;justify-content:center;
-    transition:opacity .9s ease,visibility .9s ease;
-  }
-  #intro.hidden{opacity:0;visibility:hidden;pointer-events:none;}
-  .intro-paper{
-    position:absolute;inset:-5%;
-    background:
-      radial-gradient(circle at 20% 20%,rgba(17,17,17,.035) 0 1px,transparent 1.5px),
-      radial-gradient(circle at 80% 70%,rgba(17,17,17,.025) 0 1px,transparent 1.5px),
-      #eee9df;
-    background-size:8px 8px,11px 11px,auto;
-    transition:transform 1.5s cubic-bezier(.16,1,.3,1),filter 1s ease;
-  }
-  #intro.entering .intro-paper{transform:scale(1.08);filter:contrast(1.05);}
-  .intro-scene{
-    position:relative;width:min(1120px,94vw);height:min(720px,82vh);
-    display:flex;align-items:center;justify-content:center;
-    transform-origin:58% 55%;
-    transition:transform 1.35s cubic-bezier(.16,1,.3,1),opacity .8s ease;
-  }
-  #intro.entering .intro-scene{transform:scale(7) translate(-4%,2%);opacity:0;}
-  .intro-svg{width:100%;height:100%;overflow:visible;}
-  .draw{fill:none;stroke:#171717;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1200;stroke-dashoffset:1200;animation:inkDraw 1.35s cubic-bezier(.65,0,.35,1) forwards;}
-  .draw.thin{stroke-width:1.2;}
-  .draw.red{stroke:var(--stamp);}
-  .fill-in{opacity:0;animation:inkFade .6s ease forwards;}
-  .scene-1{animation-delay:.35s}.scene-2{animation-delay:.85s}.scene-3{animation-delay:1.35s}.scene-4{animation-delay:1.8s}.scene-5{animation-delay:2.2s}.scene-6{animation-delay:2.6s}.scene-7{animation-delay:3s}.scene-8{animation-delay:3.35s}.scene-9{animation-delay:3.7s}
-  @keyframes inkDraw{to{stroke-dashoffset:0;}}
-  @keyframes inkFade{to{opacity:1;}}
-
-  .intro-cat{transform-origin:720px 510px;opacity:0;animation:catEnter .9s cubic-bezier(.16,1,.3,1) 3.7s forwards;}
-  .cat-body{fill:#eee9df;stroke:#171717;stroke-width:2.5;}
-  .cat-detail{fill:none;stroke:#171717;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-  .cat-tail{fill:none;stroke:#171717;stroke-width:2.7;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:tailDraw 1s ease 4.05s forwards;}
-  @keyframes catEnter{from{opacity:0;transform:translateX(-90px) translateY(20px) rotate(-3deg) scale(.94)}to{opacity:1;transform:translateX(0) translateY(0) rotate(0) scale(1)}}
-  @keyframes tailDraw{to{stroke-dashoffset:0}}
-  .steam{fill:none;stroke:#77736b;stroke-width:1.7;stroke-linecap:round;opacity:0;stroke-dasharray:80;animation:steam 2.2s ease-in-out 4.5s infinite;}
-  .steam.s2{animation-delay:4.8s}.steam.s3{animation-delay:5.1s}
-  @keyframes steam{0%{opacity:0;transform:translateY(8px)}25%{opacity:.65}75%{opacity:.25}100%{opacity:0;transform:translateY(-18px)}}
-
-  .intro-copy{position:absolute;left:5%;top:8%;z-index:2;pointer-events:none;}
-  .intro-kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--stamp);opacity:0;animation:copyIn .8s ease 3.1s forwards;}
-  .intro-title{margin-top:10px;font-family:'Shippori Mincho',serif;font-size:clamp(28px,4vw,54px);line-height:.98;letter-spacing:-.03em;opacity:0;animation:copyIn .9s cubic-bezier(.16,1,.3,1) 3.35s forwards;}
-  .intro-title em{font-style:normal;color:var(--stamp);}
-  @keyframes copyIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-
-  .intro-enter{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#5f5b55;opacity:0;animation:copyIn .8s ease 4.2s forwards;}
-  .intro-enter .line{width:42px;height:1px;background:#5f5b55;position:relative;overflow:hidden;}
-  .intro-enter .line::after{content:"";position:absolute;inset:0;background:var(--stamp);transform:translateX(-100%);animation:enterPulse 1.8s ease-in-out 4.5s infinite;}
-  @keyframes enterPulse{50%{transform:translateX(0)}100%{transform:translateX(100%)}}
-  .intro-skip{position:absolute;right:4%;bottom:4%;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#77736b;opacity:0;animation:copyIn .6s ease 5s forwards;}
-
-  /* ===== Nav ===== */
-  nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:22px 32px;mix-blend-mode:difference;color:#fff;}
-  .brand{font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px;letter-spacing:.04em;}
-  .navlinks{display:flex;gap:28px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;}
-  .navlinks a{text-decoration:none;position:relative;padding-bottom:3px;}
-  .navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:currentColor;transition:width .35s cubic-bezier(.65,0,.35,1);}
-  .navlinks a:hover::after{width:100%;}
-
-  /* ===== Hero ===== */
-  .hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding-top:90px;overflow:hidden;}
-  .hero-lines{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.9;}
-  .hero-content{position:relative;z-index:2;}
-  .eyebrow{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--stamp);display:flex;align-items:center;gap:10px;margin-bottom:22px;opacity:0;animation:riseIn .8s ease .3s forwards;}
-  .eyebrow::before{content:"";width:34px;height:1px;background:var(--stamp);}
-  .hero h1{font-size:clamp(52px,9vw,132px);font-weight:800;letter-spacing:-.01em;}
-  .hero h1 .line{overflow:hidden;display:block;}
-  .hero h1 .line span{display:inline-block;transform:translateY(110%);animation:riseIn .9s cubic-bezier(.16,1,.3,1) forwards;}
-  .hero h1 .line:nth-child(1) span{animation-delay:.15s;}
-  .hero h1 .line:nth-child(2) span{animation-delay:.3s;color:transparent;-webkit-text-stroke:1.5px var(--ink);}
-  @keyframes riseIn{to{transform:translateY(0);opacity:1;}}
-  .hero-sub{max-width:460px;margin-top:28px;font-size:17px;line-height:1.7;color:var(--grey);opacity:0;animation:riseIn .8s ease .9s forwards;}
-  .hero-cta{margin-top:38px;display:flex;gap:16px;align-items:center;opacity:0;animation:riseIn .8s ease 1.1s forwards;}
-  .btn{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:14px;letter-spacing:.05em;padding:16px 30px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;position:relative;overflow:hidden;transition:color .4s ease;}
-  .btn span{position:relative;z-index:2;}
-  .btn::before{content:"";position:absolute;inset:0;background:var(--stamp);transform:translateX(-101%);transition:transform .45s cubic-bezier(.65,0,.35,1);z-index:1;}
-  .btn:hover::before{transform:translateX(0);}.btn:hover{color:#fff;}.btn.ghost{background:transparent;color:var(--ink);}.btn.ghost::before{background:var(--ink);}.btn.ghost:hover{color:var(--paper);}
-  .hero-stamp{position:absolute;right:6%;top:20%;width:140px;height:140px;border:3px solid var(--stamp);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--stamp);font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-align:center;transform:rotate(14deg) scale(0);animation:stampIn .5s cubic-bezier(.34,1.56,.64,1) 1.6s forwards;mix-blend-mode:multiply;}
-  @keyframes stampIn{to{transform:rotate(14deg) scale(1);}}
-  .scroll-cue{position:absolute;bottom:38px;left:32px;display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);opacity:0;animation:riseIn .8s ease 1.4s forwards;}
-  .scroll-cue .bar{width:1px;height:40px;background:var(--grey);position:relative;overflow:hidden;}.scroll-cue .bar::after{content:"";position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--ink);animation:scrollbar 1.8s ease-in-out infinite;}
-  @keyframes scrollbar{50%{top:0%;}100%{top:100%;}}
-
-  .marquee{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:16px 0;overflow:hidden;white-space:nowrap;}
-  .marquee-track{display:inline-block;animation:scroll 22s linear infinite;}.marquee-track span{font-family:'Shippori Mincho',serif;font-size:26px;font-weight:600;margin:0 26px;display:inline-flex;align-items:center;gap:26px;}.marquee-track span::after{content:"◆";font-size:10px;color:var(--stamp);}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-  .reveal{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}.reveal.in{opacity:1;transform:translateY(0);}
-  .reveal-scale{opacity:0;transform:scale(.85);transition:opacity 1s ease,transform 1s cubic-bezier(.34,1.56,.64,1);}.reveal-scale.in{opacity:1;transform:scale(1);}
-  section{padding:150px 0;position:relative;}
-  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px;font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--stamp);}.kicker::before{content:"";width:34px;height:1px;background:var(--stamp);}
-  .section-title{font-size:clamp(34px,4.5vw,58px);max-width:680px;}
-
-  .panels{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:70px;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink);}
-  .panel{border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:42px 32px;position:relative;overflow:hidden;}.panel-num{font-family:'Shippori Mincho',serif;font-size:13px;color:var(--stamp);margin-bottom:22px;}.panel h3{font-size:23px;margin-bottom:14px;}.panel p{font-size:14.5px;line-height:1.75;color:var(--grey);margin:0;}.panel::before{content:"";position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--stamp);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.65,0,.35,1);}.panel:hover::before{transform:scaleX(1);}.panel:hover{background:var(--paper2);}
-
-  .menu-wrap{margin-top:70px;}.menu-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:26px 0;border-bottom:1px solid rgba(17,17,17,.18);position:relative;}.menu-row .name{font-family:'Shippori Mincho',serif;font-size:24px;position:relative;z-index:2;}.menu-row .desc{font-size:13.5px;color:var(--grey);margin-top:6px;max-width:420px;}.menu-row .price{font-size:16px;font-weight:700;white-space:nowrap;padding-left:20px;}.menu-row .dots{border-bottom:1px dotted rgba(17,17,17,.35);margin:0 16px 6px;}.menu-row:hover .name{color:var(--stamp);}.menu-row .name,.menu-row .price{transition:color .3s ease;}
-
-  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:70px;}.g-block{aspect-ratio:3/4;background:var(--ink);position:relative;overflow:hidden;}.g-block .tag{position:absolute;bottom:14px;left:14px;color:var(--paper);font-family:'Shippori Mincho',serif;font-size:14px;opacity:0;transform:translateY(10px);transition:all .4s ease;}.g-block:nth-child(2){margin-top:44px;}.g-block:nth-child(4){margin-top:-30px;}.g-block::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(247,246,242,.09) 0 2px,transparent 2px 9px);}.g-block:hover .tag{opacity:1;transform:translateY(0);}.g-block{transition:transform .6s cubic-bezier(.16,1,.3,1);}.g-block:hover{transform:translateY(-8px);}
-
-  .quote-sec{background:var(--ink);color:var(--paper);text-align:center;}.quote-sec blockquote{font-family:'Shippori Mincho',serif;font-size:clamp(26px,4vw,46px);max-width:820px;margin:0 auto;line-height:1.4;}.quote-sec cite{display:block;margin-top:26px;font-size:13px;letter-spacing:.15em;color:var(--stamp);font-style:normal;text-transform:uppercase;}
-  .reserve{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;}.reserve-info p{color:var(--grey);font-size:15px;line-height:1.8;}.info-list{list-style:none;padding:0;margin:34px 0 0;}.info-list li{display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid rgba(17,17,17,.15);font-size:14px;}.info-list li:last-child{border-bottom:1px solid rgba(17,17,17,.15);}.info-list .k{color:var(--grey);letter-spacing:.08em;text-transform:uppercase;font-size:11.5px;}
-  footer{border-top:1.5px solid var(--ink);padding:60px 0 34px;display:flex;justify-content:space-between;align-items:flex-end;font-size:13px;color:var(--grey);}.footer-brand{font-family:'Shippori Mincho',serif;font-size:16px;color:var(--ink);font-weight:800;}
-
-  @media(max-width:860px){
-    .wrap{padding:0 20px}.panels{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.g-block:nth-child(2),.g-block:nth-child(4){margin-top:0}.reserve{grid-template-columns:1fr;gap:40px}.navlinks{display:none}footer{flex-direction:column;gap:14px;align-items:flex-start}.hero-stamp{width:100px;height:100px;font-size:11px;right:5%;top:14%}.hero h1{font-size:clamp(46px,13vw,82px)}.menu-row{grid-template-columns:1fr auto;gap:10px}.menu-row .dots{display:none}.menu-row .price{grid-column:2;grid-row:1}.menu-left{grid-column:1;grid-row:1}.intro-copy{left:7%;top:7%}.intro-scene{width:120vw;height:78vh}.intro-title{font-size:clamp(26px,7vw,42px)}.intro-enter{bottom:8%;font-size:9px}
-  }
-  @media(max-width:520px){
-    section{padding:105px 0}.hero{padding-top:110px}.hero-sub{font-size:15px}.hero-cta{flex-direction:column;align-items:flex-start}.hero-cta .btn{width:100%;text-align:center}.scroll-cue{left:20px}.gallery{gap:8px}.intro-scene{width:150vw;height:72vh}.intro-copy{top:8%;left:8%}.intro-kicker{font-size:9px}.intro-title{font-size:27px}.intro-enter{bottom:9%}.intro-skip{display:none}
-  }
-  @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* ===== Nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:22px 32px;mix-blend-mode:difference;color:#fff}.brand{font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px;letter-spacing:.04em}.navlinks{display:flex;gap:28px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}.navlinks a{text-decoration:none;position:relative;padding-bottom:3px}.navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:currentColor;transition:width .35s cubic-bezier(.65,0,.35,1)}.navlinks a:hover::after{width:100%}
+/* ===== Hero ===== */
+.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding-top:90px;overflow:hidden}.hero-lines{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.9}.hero-content{position:relative;z-index:2}.eyebrow{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--stamp);display:flex;align-items:center;gap:10px;margin-bottom:22px;opacity:0;animation:riseIn .8s ease .3s forwards}.eyebrow::before{content:"";width:34px;height:1px;background:var(--stamp)}.hero h1{font-size:clamp(52px,9vw,132px);font-weight:800;letter-spacing:-.01em}.hero h1 .line{overflow:hidden;display:block}.hero h1 .line span{display:inline-block;transform:translateY(110%);animation:riseIn .9s cubic-bezier(.16,1,.3,1) forwards}.hero h1 .line:nth-child(1) span{animation-delay:.15s}.hero h1 .line:nth-child(2) span{animation-delay:.3s;color:transparent;-webkit-text-stroke:1.5px var(--ink)}@keyframes riseIn{to{transform:translateY(0);opacity:1}}.hero-sub{max-width:460px;margin-top:28px;font-size:17px;line-height:1.7;color:var(--grey);opacity:0;animation:riseIn .8s ease .9s forwards}.hero-cta{margin-top:38px;display:flex;gap:16px;align-items:center;opacity:0;animation:riseIn .8s ease 1.1s forwards}.btn{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:14px;letter-spacing:.05em;padding:16px 30px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;position:relative;overflow:hidden;transition:color .4s ease}.btn span{position:relative;z-index:2}.btn::before{content:"";position:absolute;inset:0;background:var(--stamp);transform:translateX(-101%);transition:transform .45s cubic-bezier(.65,0,.35,1);z-index:1}.btn:hover::before{transform:translateX(0)}.btn:hover{color:#fff}.btn.ghost{background:transparent;color:var(--ink)}.btn.ghost::before{background:var(--ink)}.btn.ghost:hover{color:var(--paper)}.hero-stamp{position:absolute;right:6%;top:20%;width:140px;height:140px;border:3px solid var(--stamp);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--stamp);font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-align:center;transform:rotate(14deg) scale(0);animation:stampIn .5s cubic-bezier(.34,1.56,.64,1) 1.6s forwards;mix-blend-mode:multiply}@keyframes stampIn{to{transform:rotate(14deg) scale(1)}}.scroll-cue{position:absolute;bottom:38px;left:32px;display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);opacity:0;animation:riseIn .8s ease 1.4s forwards}.scroll-cue .bar{width:1px;height:40px;background:var(--grey);position:relative;overflow:hidden}.scroll-cue .bar::after{content:"";position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--ink);animation:scrollbar 1.8s ease-in-out infinite}@keyframes scrollbar{50%{top:0%}100%{top:100%}}
+.marquee{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:16px 0;overflow:hidden;white-space:nowrap}.marquee-track{display:inline-block;animation:scroll 22s linear infinite}.marquee-track span{font-family:'Shippori Mincho',serif;font-size:26px;font-weight:600;margin:0 26px;display:inline-flex;align-items:center;gap:26px}.marquee-track span::after{content:"◆";font-size:10px;color:var(--stamp)}@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.reveal{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}.reveal.in{opacity:1;transform:translateY(0)}.reveal-scale{opacity:0;transform:scale(.85);transition:opacity 1s ease,transform 1s cubic-bezier(.34,1.56,.64,1)}.reveal-scale.in{opacity:1;transform:scale(1)}section{padding:150px 0;position:relative}.kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px;font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--stamp)}.kicker::before{content:"";width:34px;height:1px;background:var(--stamp)}.section-title{font-size:clamp(34px,4.5vw,58px);max-width:680px}
+.panels{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:70px;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink)}.panel{border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:42px 32px;position:relative;overflow:hidden}.panel-num{font-family:'Shippori Mincho',serif;font-size:13px;color:var(--stamp);margin-bottom:22px}.panel h3{font-size:23px;margin-bottom:14px}.panel p{font-size:14.5px;line-height:1.75;color:var(--grey);margin:0}.panel::before{content:"";position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--stamp);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.65,0,.35,1)}.panel:hover::before{transform:scaleX(1)}.panel:hover{background:var(--paper2)}
+.menu-wrap{margin-top:70px}.menu-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:26px 0;border-bottom:1px solid rgba(17,17,17,.18);position:relative}.menu-row .name{font-family:'Shippori Mincho',serif;font-size:24px;position:relative;z-index:2}.menu-row .desc{font-size:13.5px;color:var(--grey);margin-top:6px;max-width:420px}.menu-row .price{font-size:16px;font-weight:700;white-space:nowrap;padding-left:20px}.menu-row .dots{border-bottom:1px dotted rgba(17,17,17,.35);margin:0 16px 6px}.menu-row:hover .name{color:var(--stamp)}.menu-row .name,.menu-row .price{transition:color .3s ease}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:70px}.g-block{aspect-ratio:3/4;background:var(--ink);position:relative;overflow:hidden}.g-block .tag{position:absolute;bottom:14px;left:14px;color:var(--paper);font-family:'Shippori Mincho',serif;font-size:14px;opacity:0;transform:translateY(10px);transition:all .4s ease}.g-block:nth-child(2){margin-top:44px}.g-block:nth-child(4){margin-top:-30px}.g-block::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(247,246,242,.09) 0 2px,transparent 2px 9px)}.g-block:hover .tag{opacity:1;transform:translateY(0)}.g-block{transition:transform .6s cubic-bezier(.16,1,.3,1)}.g-block:hover{transform:translateY(-8px)}
+.quote-sec{background:var(--ink);color:var(--paper);text-align:center}.quote-sec blockquote{font-family:'Shippori Mincho',serif;font-size:clamp(26px,4vw,46px);max-width:820px;margin:0 auto;line-height:1.4}.quote-sec cite{display:block;margin-top:26px;font-size:13px;letter-spacing:.15em;color:var(--stamp);font-style:normal;text-transform:uppercase}.reserve{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end}.reserve-info p{color:var(--grey);font-size:15px;line-height:1.8}.info-list{list-style:none;padding:0;margin:34px 0 0}.info-list li{display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid rgba(17,17,17,.15);font-size:14px}.info-list li:last-child{border-bottom:1px solid rgba(17,17,17,.15)}.info-list .k{color:var(--grey);letter-spacing:.08em;text-transform:uppercase;font-size:11.5px}footer{border-top:1.5px solid var(--ink);padding:60px 0 34px;display:flex;justify-content:space-between;align-items:flex-end;font-size:13px;color:var(--grey)}.footer-brand{font-family:'Shippori Mincho',serif;font-size:16px;color:var(--ink);font-weight:800}
+@media(max-width:860px){.wrap{padding:0 20px}.panels{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.g-block:nth-child(2),.g-block:nth-child(4){margin-top:0}.reserve{grid-template-columns:1fr;gap:40px}.navlinks{display:none}footer{flex-direction:column;gap:14px;align-items:flex-start}.hero-stamp{width:100px;height:100px;font-size:11px;right:5%;top:14%}.hero h1{font-size:clamp(46px,13vw,82px)}.menu-row{grid-template-columns:1fr auto;gap:10px}.menu-row .dots{display:none}.menu-row .price{grid-column:2;grid-row:1}.menu-left{grid-column:1;grid-row:1}.intro-copy{left:7%;top:7%}.intro-scene{width:120vw;height:78vh}.intro-title{font-size:clamp(26px,7vw,42px)}.intro-enter{bottom:8%;font-size:9px}}
+@media(max-width:520px){section{padding:105px 0}.hero{padding-top:110px}.hero-sub{font-size:15px}.hero-cta{flex-direction:column;align-items:flex-start}.hero-cta .btn{width:100%;text-align:center}.scroll-cue{left:20px}.gallery{gap:8px}.intro-scene{width:150vw;height:72vh}.intro-copy{top:8%;left:8%}.intro-kicker{font-size:9px}.intro-title{font-size:27px}.intro-enter{bottom:9%}.intro-skip{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body class="intro-active">
 
-<!-- Waku Waku cinematic opening: paper -> hand-drawn cafe -> cat -> scroll to enter -->
+<!-- Real Waku Waku-inspired opening: monochrome hand-drawn cafe -> cat -> existing scroll-to-enter transition -->
 <div id="intro" aria-label="Entering Waku Waku">
   <div class="intro-paper"></div>
   <div class="intro-scene" id="introScene">
-    <div class="intro-copy">
-      <div class="intro-kicker">A world drawn by hand</div>
-      <div class="intro-title">Welcome to<br><em>Waku Waku.</em></div>
-    </div>
-    <svg class="intro-svg" viewBox="0 0 1100 720" role="img" aria-label="A hand-drawn Waku Waku cafe scene with a cat">
-      <!-- cafe structure -->
+    <div class="intro-copy"><div class="intro-kicker">A world drawn by hand</div><div class="intro-title">Welcome to<br><em>Waku Waku.</em></div></div>
+    <svg class="intro-svg" viewBox="0 0 1100 720" role="img" aria-label="Hand-drawn monochrome Waku Waku cafe interior">
+      <!-- Perspective walls, ceiling and tiled floor inspired by the supplied Waku Waku interior reference. -->
       <g>
-        <path class="draw scene-1" d="M110 560 L110 210 L990 210 L990 560 M145 210 L145 165 L955 165 L955 210 M175 165 L175 125 L925 125"/>
-        <path class="draw thin scene-2" d="M110 280 H990 M110 350 H990 M110 420 H990 M110 490 H990"/>
-        <path class="draw thin scene-3" d="M210 210 V560 M890 210 V560 M310 210 V560 M790 210 V560"/>
-        <!-- hanging lamps -->
-        <path class="draw scene-4" d="M280 125 V205 M240 205 Q280 250 320 205 Z M820 125 V205 M780 205 Q820 250 860 205 Z"/>
-        <path class="draw thin" d="M260 215 Q280 225 300 215 M800 215 Q820 225 840 215"/>
-        <!-- counter -->
-        <path class="draw scene-5" d="M620 430 H950 V560 H620 Z M650 465 H920 M680 500 H890"/>
-        <path class="draw thin" d="M700 430 V390 H760 V430 M800 430 V380 H860 V430"/>
-        <!-- tables and chairs -->
-        <path class="draw scene-6" d="M175 470 H460 M215 470 V560 M420 470 V560 M185 470 Q190 425 235 425 H400 Q445 425 450 470"/>
-        <path class="draw thin" d="M180 510 H450 M245 470 V430 M390 470 V430"/>
-        <!-- wall art / manga panel -->
-        <rect class="draw thin scene-7" x="390" y="245" width="170" height="125"/>
-        <path class="draw thin" d="M410 350 Q435 285 460 350 T510 350 T550 350 M430 275 L450 255 L470 275"/>
-        <!-- menu board -->
-        <rect class="draw scene-8" x="660" y="255" width="180" height="100"/>
-        <path class="draw thin" d="M680 280 H820 M680 305 H790 M680 330 H810"/>
-        <!-- floor perspective -->
-        <path class="draw thin scene-9" d="M110 560 L350 420 M350 560 L470 420 M990 560 L750 420 M750 560 L630 420"/>
-        <!-- little Japanese details -->
-        <path class="draw red thin" d="M535 275 q25 -20 50 0 q-25 22 -50 0 M560 250 v50"/>
-        <circle class="fill-in scene-9" cx="560" cy="275" r="8" fill="var(--stamp)"/>
-
-        <!-- cat: the visual gateway -->
-        <g class="intro-cat">
+        <!-- outer room / ceiling -->
+        <path class="draw scene-1" d="M72 570 V176 H1028 V570 M72 176 L190 108 H910 L1028 176 M190 108 V74 H910 V108"/>
+        <path class="draw thin scene-1" d="M72 238 H1028 M72 302 H1028 M72 366 H1028"/>
+        <!-- ceiling panels and lights -->
+        <path class="draw thin scene-2" d="M170 176 L250 108 M350 176 L410 108 M690 108 L750 176 M850 108 L930 176"/>
+        <rect class="draw scene-2" x="250" y="128" width="92" height="30"/>
+        <rect class="draw scene-2" x="758" y="128" width="92" height="30"/>
+        <path class="draw thin" d="M274 142 H318 M782 142 H826"/>
+        <!-- left windows / glass panels -->
+        <path class="draw scene-3" d="M92 190 H380 V414 H92 Z M92 300 H380 M180 190 V414 M276 190 V414"/>
+        <path class="draw thin" d="M110 395 Q145 310 180 395 T250 395 T320 395"/>
+        <!-- Mount Fuji / Japanese wall artwork -->
+        <path class="draw thin scene-3" d="M122 370 Q175 265 230 370 Q275 292 342 370 M160 330 L178 304 L196 330 M238 340 L260 315 L282 340"/>
+        <path class="draw thin" d="M132 215 Q175 200 220 215 M242 215 Q285 200 330 215"/>
+        <!-- long left counter / seating -->
+        <path class="draw scene-4" d="M92 414 H478 V570 H92 Z M112 445 H458 M112 490 H458 M112 535 H458"/>
+        <path class="draw thin" d="M142 414 V390 H205 V414 M262 414 V390 H325 V414 M382 414 V390 H445 V414"/>
+        <!-- counter stools -->
+        <path class="draw thin scene-4" d="M155 470 v55 m-16 0 h32 M285 470 v55 m-16 0 h32 M415 470 v55 m-16 0 h32"/>
+        <!-- center structural column -->
+        <path class="draw scene-5" d="M505 166 V570 M570 166 V570 M505 190 Q537 220 570 190 M505 250 Q537 280 570 250 M505 310 Q537 340 570 310 M505 370 Q537 400 570 370 M505 430 Q537 460 570 430 M505 490 Q537 520 570 490"/>
+        <path class="draw thin" d="M520 166 V570 M555 166 V570"/>
+        <!-- central tables -->
+        <path class="draw scene-6" d="M620 440 H820 M640 440 V560 M800 440 V560 M650 420 Q670 390 700 390 H740 Q770 390 790 420 Z"/>
+        <path class="draw thin" d="M620 492 H820 M670 440 V410 M770 440 V410"/>
+        <path class="draw thin scene-6" d="M660 455 V510 M780 455 V510 M645 510 H675 M765 510 H795"/>
+        <!-- right side tables / chairs -->
+        <path class="draw scene-7" d="M820 330 H1008 V520 H820 Z M850 380 H978 M850 430 H978 M850 480 H978"/>
+        <path class="draw thin" d="M846 520 V570 M982 520 V570 M870 520 Q900 490 930 520 Q960 490 990 520"/>
+        <path class="draw thin" d="M840 350 V310 H900 V350 M930 350 V310 H990 V350"/>
+        <!-- shelving and hand-drawn frames -->
+        <path class="draw scene-8" d="M590 220 H760 V355 H590 Z M590 265 H760 M590 310 H760"/>
+        <path class="draw thin" d="M610 240 h35 v18 h-35 z M660 235 h45 v23 h-45 z M720 240 h22 v18 h-22 z M612 282 h28 v18 h-28 z M655 278 h52 v22 h-52 z M718 282 h26 v18 h-26 z"/>
+        <!-- right wall artwork / manga scenes -->
+        <rect class="draw thin scene-8" x="835" y="205" width="150" height="90"/>
+        <path class="draw thin" d="M850 276 Q875 235 900 276 T950 276 T975 276 M865 235 q18 -20 36 0 q-18 20 -36 0"/>
+        <!-- floor perspective + tiles -->
+        <path class="draw thin scene-9" d="M72 570 L330 410 M250 570 L410 410 M1028 570 L770 410 M850 570 L690 410 M430 570 L485 410 M670 570 L615 410"/>
+        <path class="draw thin" d="M72 515 H1028 M72 465 H1028 M72 420 H1028"/>
+        <!-- hanging track lights -->
+        <path class="draw thin scene-9" d="M400 176 V218 M390 218 H410 M410 176 V218 M400 218 l-10 16 h20 z M690 176 V218 M680 218 H700 M700 176 V218 M690 218 l-10 16 h20 z"/>
+        <!-- Japanese red stamp / tiny details -->
+        <path class="draw red thin scene-10" d="M455 245 q24 -20 48 0 q-24 22 -48 0 M479 221 v48"/>
+        <circle class="fill-in scene-10" cx="479" cy="245" r="7" fill="var(--stamp)"/>
+        <!-- tableware / coffee focal point -->
+        <path class="draw thin scene-10" d="M705 455 q25 -15 50 0 v20 q-25 14 -50 0 Z M755 460 q16 -4 22 8 q-5 15 -22 7"/>
+        <path class="draw thin" d="M680 470 q10 8 20 0 M840 455 q22 -14 44 0 v18 q-22 12 -44 0 Z"/>
+        <!-- cat: visual gateway -->
+        <g class="intro-cat cat-idle">
           <path class="cat-tail" d="M735 555 Q820 590 850 535 Q872 495 835 475"/>
           <path class="cat-body" d="M690 555 Q680 515 695 485 L700 440 L725 462 Q760 445 790 465 L812 440 L814 485 Q830 515 814 555 Z"/>
           <path class="cat-body" d="M704 470 Q750 430 802 470 Q820 490 808 520 Q780 548 728 532 Q700 515 704 470 Z"/>
@@ -204,12 +118,11 @@
           <path class="cat-detail" d="M708 505 L682 498 M808 505 L834 498 M708 516 L682 520 M808 516 L834 520"/>
           <path class="cat-detail" d="M720 552 q18 15 36 0 M770 552 q18 15 36 0"/>
         </g>
-
-        <!-- food/coffee -->
-        <path class="draw thin scene-9" d="M505 455 q30 -18 60 0 v22 q-30 15 -60 0 Z M565 460 q18 -5 25 10 q-6 18 -25 8"/>
-        <path class="steam" d="M520 445 Q505 425 520 405 T520 365"/>
-        <path class="steam s2" d="M540 445 Q525 420 540 400 T540 360"/>
-        <path class="steam s3" d="M560 445 Q545 425 560 405 T560 370"/>
+        <!-- steam and final ink details -->
+        <path class="steam" d="M718 448 Q703 425 718 405 T718 365"/>
+        <path class="steam s2" d="M738 448 Q723 420 738 397 T738 357"/>
+        <path class="steam s3" d="M758 448 Q743 425 758 405 T758 365"/>
+        <path class="draw thin scene-10" d="M930 330 q18 -14 36 0 v18 q-18 10 -36 0 Z M945 330 v-16 M915 350 h68"/>
       </g>
     </svg>
   </div>
@@ -218,131 +131,26 @@
 </div>
 
 <div id="inkdot"></div>
+<nav><div class="brand">和 WakuWaku</div><div class="navlinks"><a href="#about">About</a><a href="#menu">Menu</a><a href="#gallery">Gallery</a><a href="#reserve">Reserve</a></div></nav>
 
-<nav>
-  <div class="brand">和 WakuWaku</div>
-  <div class="navlinks">
-    <a href="#about">About</a><a href="#menu">Menu</a><a href="#gallery">Gallery</a><a href="#reserve">Reserve</a>
-  </div>
-</nav>
-
-<section class="hero">
-  <svg class="hero-lines" viewBox="0 0 1200 800" preserveAspectRatio="none">
-    <line x1="0" y1="120" x2="1200" y2="80" stroke="#111" stroke-width="1" opacity="0.15"/>
-    <line x1="0" y1="700" x2="1200" y2="740" stroke="#111" stroke-width="1" opacity="0.15"/>
-    <circle cx="1080" cy="620" r="90" fill="none" stroke="#111" stroke-width="1" opacity="0.12"/>
-  </svg>
-  <div class="wrap hero-content">
-    <div class="eyebrow">Portland St · Manchester</div>
-    <h1><span class="line"><span>MANCHESTER'S</span></span><span class="line"><span>FIRST 2D DINER</span></span></h1>
-    <p class="hero-sub">Every wall, every ceiling beam, hand-inked to fold the room into a manga page. Step through the door and the third dimension politely excuses itself.</p>
-    <div class="hero-cta"><a class="btn" href="#reserve"><span>Reserve a Table</span></a><a class="btn ghost" href="#menu"><span>View Menu</span></a></div>
-  </div>
-  <div class="hero-stamp">EST.<br>MCR</div>
-  <div class="scroll-cue"><div class="bar"></div>SCROLL</div>
-</section>
-
+<section class="hero"><svg class="hero-lines" viewBox="0 0 1200 800" preserveAspectRatio="none"><line x1="0" y1="120" x2="1200" y2="80" stroke="#111" stroke-width="1" opacity="0.15"/><line x1="0" y1="700" x2="1200" y2="740" stroke="#111" stroke-width="1" opacity="0.15"/><circle cx="1080" cy="620" r="90" fill="none" stroke="#111" stroke-width="1" opacity="0.12"/></svg><div class="wrap hero-content"><div class="eyebrow">Portland St · Manchester</div><h1><span class="line"><span>MANCHESTER'S</span></span><span class="line"><span>FIRST 2D DINER</span></span></h1><p class="hero-sub">Every wall, every ceiling beam, hand-inked to fold the room into a manga page. Step through the door and the third dimension politely excuses itself.</p><div class="hero-cta"><a class="btn" href="#reserve"><span>Reserve a Table</span></a><a class="btn ghost" href="#menu"><span>View Menu</span></a></div></div><div class="hero-stamp">EST.<br>MCR</div><div class="scroll-cue"><div class="bar"></div>SCROLL</div></section>
 <div class="marquee"><div class="marquee-track"><span>OMURICE</span><span>UNAGI DON</span><span>HAND-INKED WALLS</span><span>RAMEN BURGER</span><span>SUMI-E DINING</span><span>OMURICE</span><span>UNAGI DON</span><span>HAND-INKED WALLS</span><span>RAMEN BURGER</span><span>SUMI-E DINING</span></div></div>
-
-<section id="about">
-  <div class="wrap">
-    <div class="kicker reveal">The Concept</div>
-    <h2 class="section-title reveal">A restaurant drawn, not decorated. Four months, one artist, zero colour.</h2>
-    <div class="panels">
-      <div class="panel reveal"><div class="panel-num">01 — Interior</div><h3>Ink on every surface</h3><p>Monochrome linework covers floor to ceiling — a hand-drawn homage to Vermeer, Munch and The Last Supper, recast with cats in sunglasses.</p></div>
-      <div class="panel reveal"><div class="panel-num">02 — Kitchen</div><h3>Far East, plated bold</h3><p>Omurice under a whole glazed eel. Ramen burgers. Dishes built to be the one splash of colour in a black-and-white room.</p></div>
-      <div class="panel reveal"><div class="panel-num">03 — Atmosphere</div><h3>Step into the panel</h3><p>You're not seated at a table. You're dropped into a comic strip mid-scene — and the food is the punchline.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="menu" style="background:var(--paper2);">
-  <div class="wrap">
-    <div class="kicker reveal">Signatures</div><h2 class="section-title reveal">A short menu, drawn in bold strokes.</h2>
-    <div class="menu-wrap">
-      <div class="menu-row reveal"><div class="menu-left"><div class="name">Unagi Omurice</div><div class="desc">Soft egg, sticky-glazed eel, a single deliberate crack down the middle.</div></div><div class="dots"></div><div class="price">£16.50</div></div>
-      <div class="menu-row reveal"><div class="menu-left"><div class="name">Ramen Burger</div><div class="desc">Noodle bun, char-grilled patty, miso mayo bleeding through the seams.</div></div><div class="dots"></div><div class="price">£13.00</div></div>
-      <div class="menu-row reveal"><div class="menu-left"><div class="name">Mount Fuji Float</div><div class="desc">Lychee soda, vanilla ice cream, a snow-capped peak that melts on arrival.</div></div><div class="dots"></div><div class="price">£7.00</div></div>
-      <div class="menu-row reveal"><div class="menu-left"><div class="name">Summer Paradise</div><div class="desc">Mango, coconut, popping candy — dramatic layers, subtler finish.</div></div><div class="dots"></div><div class="price">£7.50</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="gallery">
-  <div class="wrap"><div class="kicker reveal">Inside the Panel</div><h2 class="section-title reveal">Scenes from the room.</h2><div class="gallery"><div class="g-block reveal-scale"><span class="tag">The Archway</span></div><div class="g-block reveal-scale"><span class="tag">Cats, Apostles</span></div><div class="g-block reveal-scale"><span class="tag">Counter Seats</span></div><div class="g-block reveal-scale"><span class="tag">The Scream, Redrawn</span></div></div></div>
-</section>
-
+<section id="about"><div class="wrap"><div class="kicker reveal">The Concept</div><h2 class="section-title reveal">A restaurant drawn, not decorated. Four months, one artist, zero colour.</h2><div class="panels"><div class="panel reveal"><div class="panel-num">01 — Interior</div><h3>Ink on every surface</h3><p>Monochrome linework covers floor to ceiling — a hand-drawn homage to Vermeer, Munch and The Last Supper, recast with cats in sunglasses.</p></div><div class="panel reveal"><div class="panel-num">02 — Kitchen</div><h3>Far East, plated bold</h3><p>Omurice under a whole glazed eel. Ramen burgers. Dishes built to be the one splash of colour in a black-and-white room.</p></div><div class="panel reveal"><div class="panel-num">03 — Atmosphere</div><h3>Step into the panel</h3><p>You're not seated at a table. You're dropped into a comic strip mid-scene — and the food is the punchline.</p></div></div></div></section>
+<section id="menu" style="background:var(--paper2);"><div class="wrap"><div class="kicker reveal">Signatures</div><h2 class="section-title reveal">A short menu, drawn in bold strokes.</h2><div class="menu-wrap"><div class="menu-row reveal"><div class="menu-left"><div class="name">Unagi Omurice</div><div class="desc">Soft egg, sticky-glazed eel, a single deliberate crack down the middle.</div></div><div class="dots"></div><div class="price">£16.50</div></div><div class="menu-row reveal"><div class="menu-left"><div class="name">Ramen Burger</div><div class="desc">Noodle bun, char-grilled patty, miso mayo bleeding through the seams.</div></div><div class="dots"></div><div class="price">£13.00</div></div><div class="menu-row reveal"><div class="menu-left"><div class="name">Mount Fuji Float</div><div class="desc">Lychee soda, vanilla ice cream, a snow-capped peak that melts on arrival.</div></div><div class="dots"></div><div class="price">£7.00</div></div><div class="menu-row reveal"><div class="menu-left"><div class="name">Summer Paradise</div><div class="desc">Mango, coconut, popping candy — dramatic layers, subtler finish.</div></div><div class="dots"></div><div class="price">£7.50</div></div></div></div></section>
+<section id="gallery"><div class="wrap"><div class="kicker reveal">Inside the Panel</div><h2 class="section-title reveal">Scenes from the room.</h2><div class="gallery"><div class="g-block reveal-scale"><span class="tag">The Archway</span></div><div class="g-block reveal-scale"><span class="tag">Cats, Apostles</span></div><div class="g-block reveal-scale"><span class="tag">Counter Seats</span></div><div class="g-block reveal-scale"><span class="tag">The Scream, Redrawn</span></div></div></div></section>
 <section class="quote-sec"><div class="wrap"><blockquote class="reveal">"Like stepping into the video for A-Ha's 'Take On Me' — only with a far superior sense of humour."</blockquote><cite class="reveal">— Manchester's Finest</cite></div></section>
-
-<section id="reserve">
-  <div class="wrap reserve">
-    <div class="reserve-info reveal"><div class="kicker">Find the Door</div><h2 class="section-title" style="font-size:clamp(30px,4vw,44px);">A few minutes from Chinatown's arch. Easy to miss, worth the detour.</h2><p>Walk-ins welcome, though the corner booth under the koi mural fills fast on weekends.</p><ul class="info-list"><li><span class="k">Address</span><span>54 Portland St, Manchester M1 4QU</span></li><li><span class="k">Hours</span><span>Tue–Sun, 12:00–22:00</span></li><li><span class="k">Phone</span><span>+44 7435 969498</span></li></ul></div>
-    <div class="reveal-scale"><a class="btn" href="#" style="width:100%;text-align:center;display:block;padding:22px;"><span>Book a Table →</span></a></div>
-  </div>
-</section>
-
+<section id="reserve"><div class="wrap reserve"><div class="reserve-info reveal"><div class="kicker">Find the Door</div><h2 class="section-title" style="font-size:clamp(30px,4vw,44px);">A few minutes from Chinatown's arch. Easy to miss, worth the detour.</h2><p>Walk-ins welcome, though the corner booth under the koi mural fills fast on weekends.</p><ul class="info-list"><li><span class="k">Address</span><span>54 Portland St, Manchester M1 4QU</span></li><li><span class="k">Hours</span><span>Tue–Sun, 12:00–22:00</span></li><li><span class="k">Phone</span><span>+44 7435 969498</span></li></ul></div><div class="reveal-scale"><a class="btn" href="#" style="width:100%;text-align:center;display:block;padding:22px;"><span>Book a Table →</span></a></div></div></section>
 <footer><div class="wrap" style="display:flex;justify-content:space-between;width:100%;align-items:flex-end;"><div><div class="footer-brand">和 WakuWaku</div><div>54 Portland St, Manchester</div></div><div>Design concept demo — not the live site</div></div></footer>
 
 <script>
-  // ===== Cinematic intro state =====
-  const intro = document.getElementById('intro');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let introActive = true;
-  let entering = false;
-  let touchStartY = null;
-
-  function enterWakuWaku(){
-    if(!introActive || entering) return;
-    entering = true;
-    intro.classList.add('entering');
-    setTimeout(() => {
-      intro.classList.add('hidden');
-      document.body.classList.remove('intro-active');
-      introActive = false;
-      window.scrollTo({top:0,behavior:'auto'});
-    }, prefersReducedMotion ? 80 : 1250);
-  }
-
-  // First downward scroll/touch enters the illustration instead of immediately moving past it.
-  window.addEventListener('wheel', e => {
-    if(!introActive) return;
-    if(e.deltaY > 0){ e.preventDefault(); enterWakuWaku(); }
-  }, {passive:false});
-
-  window.addEventListener('touchstart', e => {
-    if(introActive) touchStartY = e.touches[0].clientY;
-  }, {passive:true});
-  window.addEventListener('touchmove', e => {
-    if(!introActive || touchStartY === null) return;
-    const delta = touchStartY - e.touches[0].clientY;
-    if(delta > 8){ e.preventDefault(); enterWakuWaku(); touchStartY = null; }
-  }, {passive:false});
-  window.addEventListener('touchend', () => { touchStartY = null; }, {passive:true});
-
-  // Keyboard users can enter with Enter/Space/ArrowDown.
-  window.addEventListener('keydown', e => {
-    if(!introActive) return;
-    if(['Enter',' ','ArrowDown'].includes(e.key)){ e.preventDefault(); enterWakuWaku(); }
-  });
-
-  // Do not trap a visitor indefinitely if they never interact.
-  if(prefersReducedMotion){
-    setTimeout(enterWakuWaku, 350);
-  }
-
-  // Ink cursor dot
-  const dot = document.getElementById('inkdot');
-  window.addEventListener('mousemove', e => { dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px'; });
-  document.querySelectorAll('a,.panel,.g-block,.menu-row').forEach(el => {
-    el.addEventListener('mouseenter',()=>{dot.style.width='40px';dot.style.height='40px';dot.style.background='var(--stamp)';dot.style.borderColor='var(--stamp)';});
-    el.addEventListener('mouseleave',()=>{dot.style.width='14px';dot.style.height='14px';dot.style.background='transparent';dot.style.borderColor='var(--ink)';});
-  });
-
-  // Scroll reveal
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(en => { if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);} });
-  }, {threshold:.18});
-  document.querySelectorAll('.reveal,.reveal-scale').forEach(el=>io.observe(el));
+const intro=document.getElementById('intro');const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;let introActive=true;let entering=false;let touchStartY=null;
+function enterWakuWaku(){if(!introActive||entering)return;entering=true;intro.classList.add('entering');setTimeout(()=>{intro.classList.add('hidden');document.body.classList.remove('intro-active');introActive=false;window.scrollTo({top:0,behavior:'auto'});},prefersReducedMotion?80:1250)}
+/* Preserve the existing scroll transition: the improved drawing ends first, then the first downward gesture enters the world. */
+window.addEventListener('wheel',e=>{if(!introActive)return;if(e.deltaY>0){e.preventDefault();enterWakuWaku()}},{passive:false});
+window.addEventListener('touchstart',e=>{if(introActive)touchStartY=e.touches[0].clientY},{passive:true});window.addEventListener('touchmove',e=>{if(!introActive||touchStartY===null)return;const delta=touchStartY-e.touches[0].clientY;if(delta>8){e.preventDefault();enterWakuWaku();touchStartY=null}},{passive:false});window.addEventListener('touchend',()=>{touchStartY=null},{passive:true});window.addEventListener('keydown',e=>{if(!introActive)return;if(['Enter',' ','ArrowDown'].includes(e.key)){e.preventDefault();enterWakuWaku()}});
+if(prefersReducedMotion)setTimeout(enterWakuWaku,350);
+const dot=document.getElementById('inkdot');window.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px'});document.querySelectorAll('a,.panel,.g-block,.menu-row').forEach(el=>{el.addEventListener('mouseenter',()=>{dot.style.width='40px';dot.style.height='40px';dot.style.background='var(--stamp)';dot.style.borderColor='var(--stamp)'});el.addEventListener('mouseleave',()=>{dot.style.width='14px';dot.style.height='14px';dot.style.background='transparent';dot.style.borderColor='var(--ink)'})});
+const io=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{threshold:.18});document.querySelectorAll('.reveal,.reveal-scale').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
